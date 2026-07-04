@@ -616,21 +616,24 @@ body.light .folder{ background:var(--light-card); }
 .certs-row {
   display: flex;
   align-items: center;
-  gap: 14px;
-  margin-top: 20px;
+  gap: 16px;
+  margin-top: 22px;
   padding-top: 18px;
   border-top: 1px solid rgba(255,255,255,0.05);
 }
 .cert-badge {
-  width: 52px;
+  width: 60px;
   height: auto;
-  border-radius: 8px;
+  border-radius: 10px;
   flex-shrink: 0;
+  border: 1px solid rgba(239,68,68,0.2);
+  box-shadow: 0 0 20px rgba(239,68,68,0.1);
 }
 .certs-label {
-  font-size: 13px;
-  color: var(--muted);
-  letter-spacing: 0.5px;
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--text);
+  letter-spacing: 1px;
 }
 .certs-label::before {
   content: "▸ ";
@@ -748,6 +751,21 @@ body.light .bio-card strong { color: var(--light-text); }
   .stat-item { padding: 18px 12px; }
   .stat-number { font-size: 26px; }
   .bio-card { padding: 24px; }
+}
+
+/* ===== ABOUT ME REVEAL ANIMATION ===== */
+#about.active .about-reveal {
+  animation: aboutFadeUp 0.6s ease both;
+}
+#about.active .about-reveal-1 { animation-delay: 0.05s; }
+#about.active .about-reveal-2 { animation-delay: 0.2s; }
+#about.active .about-reveal-3 { animation-delay: 0.35s; }
+#about.active .about-reveal-4 { animation-delay: 0.5s; }
+#about.active .about-reveal-5 { animation-delay: 0.65s; }
+#about.active .about-reveal-6 { animation-delay: 0.8s; }
+@keyframes aboutFadeUp {
+  0% { opacity: 0; transform: translateY(24px); }
+  100% { opacity: 1; transform: translateY(0); }
 }
 
 /* ===== AIKIDO.DEV-INSPIRED ENHANCEMENTS ===== */
@@ -895,6 +913,20 @@ body.light .hero-stats {
 .card:hover::after {
   opacity: 1;
   transform: scale(1);
+  animation: matrix-glitch 0.4s ease-out, matrix-pulse 2s ease-in-out 0.4s infinite;
+}
+@keyframes matrix-glitch {
+  0% { opacity: 0; transform: scale(0.95) translateX(0); clip-path: inset(0 0 0 0); }
+  10% { opacity: 1; transform: scale(1) translateX(-3px); clip-path: inset(20% 0 60% 0); }
+  20% { opacity: 0.8; transform: scale(1) translateX(3px); clip-path: inset(50% 0 10% 0); }
+  30% { opacity: 1; transform: scale(1) translateX(-1px); clip-path: inset(0 0 30% 0); }
+  50% { opacity: 0.9; transform: scale(1) translateX(0); clip-path: inset(10% 0 40% 0); }
+  70% { opacity: 1; transform: scale(1) translateX(2px); clip-path: inset(70% 0 0 0); }
+  100% { opacity: 1; transform: scale(1) translateX(0); clip-path: inset(0 0 0 0); }
+}
+@keyframes matrix-pulse {
+  0%, 100% { text-shadow: 0 0 10px rgba(239,68,68,0.5), 0 0 30px rgba(239,68,68,0.2); }
+  50% { text-shadow: 0 0 20px rgba(239,68,68,0.7), 0 0 60px rgba(239,68,68,0.3), 0 0 100px rgba(239,68,68,0.1); }
 }
 .card:hover {
   border-color: rgba(239,68,68,0.35) !important;
@@ -1213,36 +1245,36 @@ body.light .tes-company-info h4 { color: var(--light-text); }
       <h2 class="section-title-glow">About Me</h2>
       <div class="accent-line"></div>
 
-      <div class="bio-card">
+      <div class="bio-card about-reveal about-reveal-1">
         <p>Hi, I'm <strong>Giuseppe Benassi</strong>, known online as <strong class="bio-highlight">Voldemort</strong>, a security researcher, ethical hacker, and offensive security specialist.</p>
         <p>I work professionally in the field of offensive security for a private company based in Italy, where I perform in-depth security assessments, red teaming, and vulnerability research. In parallel, I operate as a freelance consultant, offering offensive security services with a strong focus on real-world exploitability and business-critical risk.</p>
         <p>I'm also an active bug bounty hunter, currently ranked in the <strong>Top 15 worldwide on YesWeHack</strong>, with over 780 reported vulnerabilities. In addition, I have submitted over 160 vulnerabilities on HackerOne and more than 100 valid reports on Bugcrowd, collaborating with a wide range of private and public programs.</p>
-        <div class="certs-row">
+        <div class="certs-row about-reveal about-reveal-3">
           <img src="ejpt.png" alt="eJPT" class="cert-badge" loading="lazy">
           <span class="certs-label">eJPT</span>
         </div>
       </div>
 
-      <div class="stats-grid">
-        <div class="stat-item">
+      <div class="stats-grid about-reveal about-reveal-2">
+        <div class="stat-item about-reveal about-reveal-2">
           <div class="stat-number">#15</div>
           <div class="stat-label">Worldwide YesWeHack</div>
         </div>
-        <div class="stat-item">
+        <div class="stat-item about-reveal about-reveal-2">
           <div class="stat-number">780+</div>
           <div class="stat-label">Vulnerabilities Reported</div>
         </div>
-        <div class="stat-item">
+        <div class="stat-item about-reveal about-reveal-2">
           <div class="stat-number">160+</div>
           <div class="stat-label">HackerOne Submissions</div>
         </div>
-        <div class="stat-item">
+        <div class="stat-item about-reveal about-reveal-2">
           <div class="stat-number">100+</div>
           <div class="stat-label">Bugcrowd Valid Reports</div>
         </div>
       </div>
 
-      <div class="principle-block">
+      <div class="principle-block about-reveal about-reveal-4">
         I believe in blending technical expertise with strategic understanding: knowing how a system works is important, but knowing how it fails securely is where the real value lies.
       </div>
     </section>
@@ -2141,12 +2173,12 @@ GET https://&lt;api-host&gt;/api/quotes/&lt;uuid&gt;
         fullScreen: { enable: false },
         fpsLimit: 60,
         particles: {
-          number: { value: 50, density: { enable: true } },
+          number: { value: 80, density: { enable: true } },
           color: { value: "#ef4444" },
           shape: { type: "circle" },
-          opacity: { value: 0.3, random: true, anim: { enable: true, speed: 0.5, opacity_min: 0.05 } },
-          size: { value: 2, random: true, anim: { enable: true, speed: 1, size_min: 0.1 } },
-          links: { enable: true, distance: 150, color: "#ef4444", opacity: 0.15, width: 1 },
+          opacity: { value: 0.5, random: true, anim: { enable: true, speed: 0.5, opacity_min: 0.1 } },
+          size: { value: 3, random: true, anim: { enable: true, speed: 1, size_min: 0.3 } },
+          links: { enable: true, distance: 140, color: "#ef4444", opacity: 0.25, width: 1.5 },
           move: {
             enable: true,
             speed: 1,
