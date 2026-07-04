@@ -627,6 +627,13 @@ body.light .folder{ background:var(--light-card); }
   height: 46px;
   flex-shrink: 0;
 }
+.cert-badge-wrapper a {
+  display: block;
+  transition: transform 0.2s ease;
+}
+.cert-badge-wrapper a:hover {
+  transform: scale(1.1);
+}
 .cert-badge {
   width: 100%;
   height: auto;
@@ -1294,8 +1301,10 @@ body.light .tes-company-info h4 { color: var(--light-text); }
         <p><strong class="bio-highlight">eJPT</strong> · B.Sc. in STEM — Università degli Studi di Bari</p>
         <div class="certs-row about-reveal about-reveal-3">
           <div class="cert-badge-wrapper">
-            <img src="./ejpt.png" alt="eJPT" class="cert-badge" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
-            <div class="cert-badge-fallback"><i class="fa fa-shield"></i></div>
+            <a href="https://raw.githubusercontent.com/CodenameVenom/codenamevenom.github.io/refs/heads/main/ejpt.png" target="_blank" rel="noopener" title="Click to enlarge">
+              <img src="./ejpt.png" alt="eJPT" class="cert-badge" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+              <div class="cert-badge-fallback"><i class="fa fa-shield"></i></div>
+            </a>
           </div>
           <span class="certs-label">eJPT</span>
         </div>
