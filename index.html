@@ -666,6 +666,116 @@ body.light .folder{ background:var(--light-card); }
 }
 body.light .certs-row { border-top-color: rgba(0,0,0,0.06); }
 
+/* ===== CONTACT FORM ===== */
+.contact-wrap {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px;
+  max-width: 900px;
+  margin: 0 auto;
+}
+.contact-info {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.contact-info p { margin-bottom: 8px; }
+.contact-form form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.contact-form input,
+.contact-form textarea {
+  width: 100%;
+  padding: 12px 14px;
+  border-radius: 10px;
+  border: 1px solid rgba(255,255,255,0.08);
+  background: var(--card);
+  color: var(--text);
+  font-family: inherit;
+  font-size: 14px;
+  transition: border-color 0.2s;
+  outline: none;
+}
+.contact-form input:focus,
+.contact-form textarea:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 20px rgba(239,68,68,0.06);
+}
+.contact-form input::placeholder,
+.contact-form textarea::placeholder {
+  color: var(--muted);
+}
+.contact-form button { align-self: flex-start; border: none; cursor: pointer; }
+body.light .contact-form input,
+body.light .contact-form textarea {
+  background: var(--light-card);
+  border-color: rgba(0,0,0,0.08);
+  color: var(--light-text);
+}
+@media (max-width: 880px) {
+  .contact-wrap { grid-template-columns: 1fr; gap: 28px; }
+}
+
+/* ===== BACK TO TOP ===== */
+#back-to-top {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: var(--card);
+  border: 1px solid rgba(239,68,68,0.2);
+  color: var(--accent);
+  font-size: 18px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.3s ease, transform 0.3s ease, background 0.2s;
+  z-index: 999;
+  pointer-events: none;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+}
+#back-to-top.visible {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+#back-to-top:hover {
+  background: var(--accent);
+  color: #fff;
+}
+body.light #back-to-top { background: var(--light-card); }
+
+/* ===== TECH STACK BADGES ===== */
+.tech-stack {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 20px;
+  justify-content: center;
+}
+.tech-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.3px;
+  background: rgba(239,68,68,0.06);
+  border: 1px solid rgba(239,68,68,0.12);
+  color: var(--text);
+}
+.tech-badge i { color: var(--accent); font-size: 14px; }
+body.light .tech-badge { background: rgba(239,68,68,0.03); }
+
 /* Stats grid */
 .stats-grid {
   display: grid;
@@ -1332,13 +1442,40 @@ body.light .tes-company-info h4 { color: var(--light-text); }
       <div class="principle-block about-reveal about-reveal-4">
         I believe security is not just about finding flaws — it's about building resilient systems from the ground up. Whether I'm breaking into an application or wiring a network rack, the goal is the same: make it secure, make it reliable.
       </div>
+
+      <div class="tech-stack about-reveal about-reveal-5">
+        <span class="tech-badge"><i class="fa fa-bolt"></i> Burp Suite</span>
+        <span class="tech-badge"><i class="fa fa-network-wired"></i> Nmap</span>
+        <span class="tech-badge"><i class="fa fa-code"></i> Metasploit</span>
+        <span class="tech-badge"><i class="fa fa-shield-halved"></i> Nessus</span>
+        <span class="tech-badge"><i class="fa fa-database"></i> SQLMap</span>
+        <span class="tech-badge"><i class="fa fa-cloud"></i> AWS / Cloud</span>
+        <span class="tech-badge"><i class="fa fa-linux"></i> Linux</span>
+        <span class="tech-badge"><i class="fa fa-wifi"></i> Cisco / Ubiquiti</span>
+        <span class="tech-badge"><i class="fa fa-video"></i> IP Surveillance</span>
+        <span class="tech-badge"><i class="fa fa-sitemap"></i> VLAN / VPN</span>
+      </div>
     </section>
 
     <section id="contact" style="position:relative;">
       <div class="dashed-grid"><div class="dg-line"></div><div class="dg-line"></div><div class="dg-line"></div><div class="dg-line"></div><div class="dg-line"></div><div class="dg-line"></div></div>
       <h2 class="section-title-glow">Contact</h2>
-      <p><a href="mailto:voxlab.services@gmail.com">voxlab.services@gmail.com</a></p>
-      <p style="margin-top:20px"><a href="mailto:voxlab.services@gmail.com" class="gradient-btn"><i class="fa fa-envelope"></i> Send Email</a></p>
+      <div class="accent-line"></div>
+      <div class="contact-wrap">
+        <div class="contact-info">
+          <p><a href="mailto:voxlab.services@gmail.com"><i class="fa fa-envelope" style="margin-right:8px;color:var(--accent);"></i>voxlab.services@gmail.com</a></p>
+          <p style="margin-top:20px"><a href="mailto:voxlab.services@gmail.com" class="gradient-btn"><i class="fa fa-envelope"></i> Send Email</a></p>
+        </div>
+        <div class="contact-form">
+          <form action="https://formspree.io/f/xvglvngb" method="POST">
+            <input type="text" name="name" placeholder="Name" required>
+            <input type="email" name="email" placeholder="Email" required>
+            <input type="text" name="subject" placeholder="Subject">
+            <textarea name="message" placeholder="Message" rows="4" required></textarea>
+            <button type="submit" class="gradient-btn"><i class="fa fa-paper-plane"></i> Send Message</button>
+          </form>
+        </div>
+      </div>
     </section>
 
     <section id="testimonials" style="position:relative;">
@@ -2268,6 +2405,20 @@ GET https://&lt;api-host&gt;/api/quotes/&lt;uuid&gt;
       topbar.classList.remove("shrink");
     }
   });
+
+  // Back to top
+  const backBtn = document.getElementById("back-to-top");
+  window.addEventListener("scroll", () => {
+    if (window.scrollY > 400) {
+      backBtn.classList.add("visible");
+    } else {
+      backBtn.classList.remove("visible");
+    }
+  });
+  backBtn.addEventListener("click", () => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  });
 </script>
+<button id="back-to-top" aria-label="Back to top"><i class="fa fa-arrow-up"></i></button>
 </body>
 </html>
