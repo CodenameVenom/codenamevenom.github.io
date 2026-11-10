@@ -1681,6 +1681,24 @@ body.light #reportSearch{background:#fff!important;color:#222!important;border-c
 body.light #topbar .topbar-lang{color:#d6d6d6;border-color:rgba(255,255,255,.16)}
 body.light .about-side .panel-card{background:#fff;border-color:rgba(0,0,0,.07)}
 body.light .note{color:#555}
+/* homepage scroll-driven composition */
+.page-home [data-home-section]{min-height:100vh;display:flex;flex-direction:column;justify-content:center;scroll-margin-top:80px}
+.home-hero .hero-inner{position:relative;z-index:2}
+.hero-constellation{position:absolute;right:-7%;top:48%;width:min(48vw,640px);aspect-ratio:1;transform:translateY(-50%) rotate(calc(var(--home-scroll,0) * 26deg)) scale(calc(1 + var(--home-scroll,0) * .06));transform-origin:50% 50%;pointer-events:none;z-index:0;opacity:.55;filter:drop-shadow(0 0 30px rgba(239,68,68,.14));transition:opacity .6s ease}
+.hero-constellation svg{width:100%;height:100%;overflow:visible}
+.hero-net-rings{transform-box:fill-box;transform-origin:center;animation:heroOrbit 70s linear infinite}
+@keyframes heroOrbit{to{transform:rotate(360deg)}}
+.hero-scroll{position:absolute;left:50%;bottom:54px;transform:translateX(-50%);z-index:2;display:flex;flex-direction:column;align-items:center;gap:10px;text-decoration:none;font-family:"SF Mono","Fira Code",ui-monospace,Menlo,Consolas,monospace;font-size:8.5px;letter-spacing:.24em;text-transform:uppercase;color:rgba(230,238,246,.45)}
+.hero-scroll:hover{color:var(--accent)}
+.hero-scroll-line{width:1px;height:38px;background:linear-gradient(180deg,transparent,rgba(239,68,68,.8));animation:heroScrollPulse 2.6s ease-in-out infinite}
+@keyframes heroScrollPulse{0%,100%{opacity:.35;transform:scaleY(.6)}50%{opacity:1;transform:scaleY(1)}}
+@media(max-width:1100px){.hero-constellation{right:-16%;width:56vw;opacity:.35}}
+@media(max-width:880px){.hero-constellation,.hero-scroll{display:none}.page-home [data-home-section]{min-height:auto;scroll-margin-top:86px}}
+@media(prefers-reduced-motion:reduce){.hero-net-rings,.hero-scroll-line{animation:none!important}.hero-constellation{transform:translateY(-50%)!important}}
+/* full-screen hero composition */
+.hero-screen{position:relative;min-height:100vh;display:flex;flex-direction:column;justify-content:center;padding:70px 0 46px}
+.home-hero .hero-inner{padding-top:0;position:relative;z-index:2}
+@media(max-width:880px){.hero-screen{min-height:100vh;padding:96px 0 48px}}
 
 /* ===== SINGLE-FILE ROUTER / LANGUAGE / REPORT OVERLAY ===== */
 .lang-site[hidden]{display:none!important}
@@ -1730,6 +1748,24 @@ body.light #report-detail .report-back{color:#222;border-color:rgba(0,0,0,.2)}
 @media(prefers-reduced-motion:reduce){
   .page-about.active .about-reveal{animation:none!important}
 }
+
+/* homepage section rail */
+.home-rail{position:fixed;right:20px;top:50%;transform:translateY(-50%);z-index:5;display:none;flex-direction:column;gap:9px;pointer-events:auto}
+.home-rail.on{display:flex}
+.home-rail a{position:relative;display:flex;align-items:center;justify-content:flex-end;gap:8px;color:rgba(230,238,246,.38);text-decoration:none;font-family:"SF Mono","Fira Code",ui-monospace,Menlo,Consolas,monospace;font-size:8px;letter-spacing:.12em;text-transform:uppercase;transition:color .25s ease,opacity .25s ease;opacity:.65}
+.home-rail a:before{content:"";width:16px;height:1px;background:currentColor;opacity:.5;transition:width .25s ease,opacity .25s ease}
+.home-rail a span{color:var(--accent);font-size:7.5px;opacity:.8}
+.home-rail a em{font-style:normal;max-width:0;overflow:hidden;white-space:nowrap;opacity:0;transition:max-width .3s ease,opacity .3s ease}
+.home-rail a:hover,.home-rail a.active{color:var(--text);opacity:1}
+.home-rail a:hover em,.home-rail a.active em{max-width:150px;opacity:1}
+.home-rail a:hover:before,.home-rail a.active:before{width:26px;opacity:1;background:var(--accent)}
+.home-rail a.active span{opacity:1}
+.home-rail-progress{position:absolute;right:-10px;top:0;bottom:0;width:1px;background:rgba(255,255,255,.1);overflow:hidden}
+.home-rail-fill{display:block;width:100%;height:0;background:linear-gradient(180deg,var(--accent),rgba(239,68,68,.15))}
+body.light .home-rail a{color:#777}
+body.light .home-rail a.active,body.light .home-rail a:hover{color:#111}
+body.light .home-rail-progress{background:rgba(0,0,0,.1)}
+@media(max-width:880px){.home-rail{display:none!important}}
 
 </style>
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "ProfessionalService", "name": "Thanat0s", "url": "https://codenamevenom.github.io", "email": "voxlab.services@gmail.com", "description": "Consulenza cybersecurity indipendente, penetration testing e sicurezza delle infrastrutture per aziende e professionisti.", "areaServed": {"@type": "Country", "name": "Italy"}, "founder": {"@type": "Person", "name": "Giuseppe Benassi", "jobTitle": "Independent Cybersecurity Consultant"}, "knowsAbout": ["Penetration Testing", "Vulnerability Assessment", "Sicurezza reti e infrastrutture", "Cybersecurity per PMI e studi professionali", "Cloud & Application Security", "Security Hardening", "Risk Assessment"], "makesOffer": [{"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Penetration Testing"}}, {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Vulnerability Assessment"}}, {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Sicurezza reti e infrastrutture"}}, {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Cybersecurity per PMI e studi professionali"}}, {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Cloud & Application Security"}}, {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Security Hardening"}}, {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Risk Assessment"}}]}</script>
@@ -1782,10 +1818,46 @@ body.light #report-detail .report-back{color:#222;border-color:rgba(0,0,0,.2)}
   </div>
 </aside>
 <div class="blur-spot blur-spot-1"></div><div class="blur-spot blur-spot-2"></div><div class="blur-spot blur-spot-3"></div>
+<nav id="home-rail" class="home-rail" aria-label="Homepage sections">
+  <div class="home-rail-progress"><span class="home-rail-fill"></span></div>
+  <a href="#" data-home-target="context"><span>01</span><em data-i18n="rail_context">Contesto</em></a>
+  <a href="#" data-home-target="services"><span>02</span><em data-i18n="rail_services">Servizi</em></a>
+  <a href="#" data-home-target="sectors"><span>03</span><em data-i18n="rail_sectors">Destinatari</em></a>
+  <a href="#" data-home-target="method"><span>04</span><em data-i18n="rail_method">Metodo</em></a>
+  <a href="#" data-home-target="trust"><span>05</span><em data-i18n="rail_trust">Affidabilità</em></a>
+  <a href="#" data-home-target="research"><span>06</span><em data-i18n="rail_research">Research</em></a>
+  <a href="#" data-home-target="tailored"><span>07</span><em data-i18n="rail_tailored">Su misura</em></a>
+  <a href="#" data-home-target="faq"><span>08</span><em data-i18n="rail_faq">FAQ</em></a>
+  <a href="#" data-home-target="contact"><span>09</span><em data-i18n="rail_contact">Contatti</em></a>
+</nav>
 <main id="content">
 <div class="lang-site" data-lang="it"><section aria-labelledby="home-title" class="page home-hero page page-home" data-lang-page="it" data-page-key="home" id="page-home-it">
 <div aria-hidden="true" class="dashed-grid"><div class="dg-line"></div><div class="dg-line"></div><div class="dg-line"></div><div class="dg-line"></div><div class="dg-line"></div><div class="dg-line"></div></div>
 <div aria-hidden="true" class="particles-canvas" id="particles-canvas-it" style="position:absolute;inset:0;pointer-events:none;z-index:0;overflow:hidden;"></div>
+<div class="hero-screen">
+<div aria-hidden="true" class="hero-constellation">
+<svg viewbox="0 0 600 600">
+<g class="hero-net-rings" fill="none" stroke="rgba(239,68,68,.18)" stroke-width=".6">
+<ellipse cx="300" cy="300" rx="252" ry="112" transform="rotate(-18 300 300)"></ellipse>
+<ellipse cx="300" cy="300" rx="252" ry="112" transform="rotate(42 300 300)"></ellipse>
+<circle cx="300" cy="300" r="192" stroke-dasharray="1 8"></circle>
+<circle cx="300" cy="300" r="246" stroke="rgba(255,255,255,.055)"></circle>
+</g>
+<g class="hero-net-lines" fill="none" stroke="rgba(239,68,68,.32)" stroke-width=".75">
+<path d="M300 120 L470 190 L520 330 L440 470 L300 520 L150 470 L80 320 L150 180 Z"></path>
+<path d="M300 120 L300 300 L520 330 M150 180 L300 300 L440 470 M80 320 L300 300 L300 520 M470 190 L300 300 L150 470"></path>
+<path d="M300 120 L520 330 M470 190 L300 520 M80 320 L440 470 M150 180 L300 520"></path>
+</g>
+<g class="hero-net-nodes">
+<circle cx="300" cy="120" fill="#ef4444" r="3.2"></circle><circle cx="470" cy="190" fill="#e6eef6" r="2.4"></circle><circle cx="520" cy="330" fill="#ef4444" r="2.8"></circle><circle cx="440" cy="470" fill="#e6eef6" r="2.2"></circle><circle cx="300" cy="520" fill="#ef4444" r="3"></circle><circle cx="150" cy="470" fill="#e6eef6" r="2.3"></circle><circle cx="80" cy="320" fill="#ef4444" r="2.7"></circle><circle cx="150" cy="180" fill="#e6eef6" r="2.2"></circle>
+<circle cx="300" cy="300" fill="#e6eef6" r="5"></circle><circle cx="300" cy="300" fill="none" r="13" stroke="#ef4444" stroke-width=".7"></circle>
+<circle cx="222" cy="246" fill="#ef4444" opacity=".7" r="1.2"></circle><circle cx="388" cy="356" fill="#ef4444" opacity=".7" r="1.2"></circle>
+</g>
+<g class="hero-net-ticks" stroke="rgba(255,255,255,.22)" stroke-width=".6">
+<path d="M300 44 V58"></path><path d="M300 542 V556"></path><path d="M44 300 H58"></path><path d="M542 300 H556"></path>
+</g>
+</svg>
+</div>
 <div class="hero-inner page-shell">
 <header data-aos="fade-down">
 <span class="kicker"><i aria-hidden="true" class="fa fa-circle"></i> INDEPENDENT CYBERSECURITY CONSULTANT</span>
@@ -1805,12 +1877,14 @@ body.light #report-detail .report-back{color:#222;border-color:rgba(0,0,0,.2)}
 </div>
 </header>
 </div>
+<a class="hero-scroll" data-home-target="context" href="#"><span aria-hidden="true" class="hero-scroll-line"></span><span>SCORRI PER ESPLORARE</span></a>
+</div>
 <div class="page-shell">
-<section class="page-section">
+<section class="page-section" data-home-section="context">
 <div class="section-head"><div class="section-kicker">01 — Il contesto</div><h2 class="section-title-glow">La sicurezza informatica non riguarda soltanto le grandi aziende.</h2><p>Un sito web vulnerabile, un backup non verificato, un account compromesso o una configurazione errata possono mettere a rischio dati e operatività. Aiuto aziende e professionisti a individuare queste criticità e a definire interventi concreti per ridurre l’esposizione agli attacchi.</p></div>
 <div class="grid-4"><div class="info-card" data-aos="fade-up"><div class="icon"><i aria-hidden="true" class="fa fa-globe"></i></div><h3>Siti web e applicazioni</h3><p>Verifica delle vulnerabilità che possono compromettere dati, account e funzionalità.</p></div><div class="info-card" data-aos="fade-up"><div class="icon"><i aria-hidden="true" class="fa fa-network-wired"></i></div><h3>Reti e infrastrutture</h3><p>Analisi della sicurezza di server, dispositivi, servizi esposti e accessi remoti.</p></div><div class="info-card" data-aos="fade-up"><div class="icon"><i aria-hidden="true" class="fa fa-user-shield"></i></div><h3>Dati e account aziendali</h3><p>Verifica delle misure di protezione di email, file, account cloud e sistemi di autenticazione.</p></div><div class="info-card" data-aos="fade-up"><div class="icon"><i aria-hidden="true" class="fa fa-life-ring"></i></div><h3>Prevenzione e resilienza</h3><p>Valutazione di configurazioni, backup, accessi e misure di sicurezza per ridurre l’impatto degli incidenti.</p></div></div>
 </section>
-<section class="page-section">
+<section class="page-section" data-home-section="services">
 <div class="section-head"><div class="section-kicker">02 — Servizi</div><h2 class="section-title-glow">Servizi di Cybersecurity</h2><p>Consulenze e verifiche tecniche adattate alle esigenze di aziende, professionisti e realtà digitali.</p></div>
 <div class="grid-3"><article class="service-card" data-aos="fade-up">
 <div class="icon"><i aria-hidden="true" class="fa fa-shield-halved"></i></div>
@@ -1857,7 +1931,7 @@ body.light #report-detail .report-back{color:#222;border-color:rgba(0,0,0,.2)}
 </article></div>
 <div class="hero-actions"><a class="btn-secondary" data-page="services" href="#servizi">Vedi tutti i servizi <i aria-hidden="true" class="fa fa-arrow-right"></i></a></div>
 </section>
-<section class="page-section">
+<section class="page-section" data-home-section="sectors">
 <div class="section-head"><div class="section-kicker">03 — Destinatari</div><h2 class="section-title-glow">Soluzioni di sicurezza per attività e organizzazioni diverse.</h2></div>
 <div class="grid-5"><article class="sector-card" data-aos="fade-up">
 <div class="icon"><i aria-hidden="true" class="fa fa-drafting-compass"></i></div>
@@ -1894,12 +1968,12 @@ body.light #report-detail .report-back{color:#222;border-color:rgba(0,0,0,.2)}
 <p class="note">Le attività possono includere security code review e verifica delle configurazioni cloud.</p>
 </article></div>
 </section>
-<section class="page-section">
+<section class="page-section" data-home-section="method">
 <div class="section-head"><div class="section-kicker">04 — Metodo</div><h2 class="section-title-glow">Un approccio tecnico, chiaro e orientato ai risultati.</h2></div>
 <div class="process-grid"><div class="process-step" data-aos="fade-up"><div class="step-no">01</div><h3>Analisi delle esigenze</h3><p>Comprendo gli obiettivi del cliente, i sistemi coinvolti e i principali rischi da valutare.</p></div><div class="process-step" data-aos="fade-up"><div class="step-no">02</div><h3>Definizione dell’intervento</h3><p>Concordo attività, perimetro, autorizzazioni, tempi e deliverable.</p></div><div class="process-step" data-aos="fade-up"><div class="step-no">03</div><h3>Verifica tecnica</h3><p>Eseguo le analisi previste utilizzando metodologie e strumenti appropriati.</p></div><div class="process-step" data-aos="fade-up"><div class="step-no">04</div><h3>Report</h3><p>Documento le criticità individuate, il loro impatto e le raccomandazioni di correzione.</p></div><div class="process-step" data-aos="fade-up"><div class="step-no">05</div><h3>Supporto e verifica</h3><p>Quando previsto dall’incarico, fornisco chiarimenti tecnici e verifico l’efficacia delle correzioni.</p></div></div>
 <p class="note">Tutte le attività intrusive richiedono autorizzazione esplicita e un perimetro concordato.</p>
 </section>
-<section class="page-section">
+<section class="page-section" data-home-section="trust">
 <div class="section-head"><div class="section-kicker">05 — Affidabilità</div><h2 class="section-title-glow">Un approccio basato sulla ricerca delle vulnerabilità.</h2><p>La mia attività di Offensive Security Research mi permette di affrontare la sicurezza informatica con una prospettiva orientata all’identificazione delle vulnerabilità reali. Applico questa esperienza alle verifiche tecniche e alle consulenze, con particolare attenzione all’impatto concreto delle criticità individuate.</p></div>
 <div class="grid-2">
 <div class="info-card" data-aos="fade-up"><ul class="list-checks"><li>Offensive Security Research</li><li>Penetration Testing</li><li>Web &amp; API Security</li><li>Bug Bounty</li><li>Certificazioni</li><li>Esperienza tecnica</li><li>Report di vulnerabilità</li><li>Capacità di analisi manuale</li></ul><p class="note">Le piattaforme di bug bounty non sono clienti diretti: le attività sono svolte tramite programmi pubblici.</p><div class="hero-actions"><a class="btn-secondary" data-page="about" href="#chi-sono">Chi sono <i aria-hidden="true" class="fa fa-arrow-right"></i></a></div></div>
@@ -1911,23 +1985,23 @@ body.light #report-detail .report-back{color:#222;border-color:rgba(0,0,0,.2)}
 </div><div class="cert-cards"><span class="cert-card"><i class="fa fa-certificate"></i> eJPT</span><span class="cert-card"><i class="fa fa-graduation-cap"></i> B.Sc. STEM — Università degli Studi di Bari</span><span class="cert-card"><i class="fa fa-hourglass-half"></i> OSCP — preparazione in corso</span></div></div>
 </div>
 </section>
-<section class="page-section">
+<section class="page-section" data-home-section="research">
 <div class="section-head"><div class="section-kicker">06 — Research</div><h2 class="section-title-glow">Security Research &amp; Vulnerability Discovery</h2><p>Oltre all’attività di consulenza, mi occupo di ricerca delle vulnerabilità e sicurezza offensiva, con particolare attenzione ad applicazioni web, API e logiche di autorizzazione.</p></div>
 <div class="grid-3"><a class="info-card report-preview-card" data-aos="fade-up" data-page="research" data-report="ssrf" href="#research"><span class="severity-badge severity-critical">Critico</span><h3>SSRF — /api/og/statistic</h3><p>Parametro non autenticato che consentiva richieste server-side e raggiungimento della rete interna.</p><span class="read-more">Leggi il report <i aria-hidden="true" class="fa fa-arrow-right"></i></span></a><a class="info-card report-preview-card" data-aos="fade-up" data-page="research" data-report="idor1" href="#research"><span class="severity-badge severity-high">Alto</span><h3>IDOR — /api/Log</h3><p>Controllo accessi debole su un endpoint di logging con impatto sul registro di audit.</p><span class="read-more">Leggi il report <i aria-hidden="true" class="fa fa-arrow-right"></i></span></a><a class="info-card report-preview-card" data-aos="fade-up" data-page="research" data-report="xss" href="#research"><span class="severity-badge severity-high">Alto</span><h3>DOM XSS — /user/auth/chooseschema</h3><p>Iniezione DOM riflessa nel flusso di autenticazione SSO.</p><span class="read-more">Leggi il report <i aria-hidden="true" class="fa fa-arrow-right"></i></span></a></div>
 <p class="note">I report tecnici completi sono in inglese, lingua originale della disclosure.</p>
 <div class="hero-actions"><a class="btn-secondary" data-page="research" href="#research">Tutti i report tecnici <i aria-hidden="true" class="fa fa-arrow-right"></i></a></div>
 </section>
-<section class="page-section">
+<section class="page-section" data-home-section="tailored">
 <div class="section-head"><div class="section-kicker">07 — Su misura</div><h2 class="section-title-glow">Ogni infrastruttura è diversa. Anche la consulenza deve esserlo.</h2><p>Un piccolo studio professionale, un e-commerce e una software house hanno esigenze di sicurezza differenti. Per questo definisco le attività in base ai sistemi coinvolti, agli obiettivi e alle priorità del cliente.</p></div>
 <div class="grid-3"><article class="mode-card" data-aos="fade-up"><h3>Security Checkup</h3><p>Valutazione iniziale di un perimetro limitato: account, configurazioni, backup, dispositivi o servizi selezionati.</p><p class="note">Indicata per un primo controllo mirato.</p></article><article class="mode-card" data-aos="fade-up"><h3>Security Assessment</h3><p>Analisi più strutturata di reti, sistemi, applicazioni o infrastrutture concordate.</p><p class="note">Indicata per ottenere un quadro tecnico più ampio.</p></article><article class="mode-card" data-aos="fade-up"><h3>Penetration Testing</h3><p>Verifica tecnica approfondita di un perimetro autorizzato, con analisi manuale delle vulnerabilità e report.</p><p class="note">Indicata per validare l’impatto reale delle vulnerabilità.</p></article></div>
 <p class="note">Nessun prezzo definitivo pubblicato: il preventivo dipende da perimetro, complessità e attività richieste.</p>
 <div class="hero-actions"><a class="gradient-btn" data-page="contact" href="#contatti">Richiedi un preventivo personalizzato <i aria-hidden="true" class="fa fa-arrow-right"></i></a></div>
 </section>
-<section class="page-section">
+<section class="page-section" data-home-section="faq">
 <div class="section-head"><div class="section-kicker">08 — FAQ</div><h2 class="section-title-glow">Domande frequenti</h2></div>
 <div class="faq-grid"><details class="faq-item"><summary>Qual è la differenza tra Vulnerability Assessment e Penetration Test?</summary><div class="faq-body"><p>Il Vulnerability Assessment identifica e prioritizza debolezze note, spesso con verifiche meno intrusive. Il Penetration Test verifica anche la sfruttabilità delle vulnerabilità, analizzando catene e impatto reale all’interno di un perimetro autorizzato. Entrambi producono un report tecnico.</p></div></details><details class="faq-item"><summary>Offri consulenze anche a piccoli studi e liberi professionisti?</summary><div class="faq-body"><p>Sì. Le attività possono essere limitate a un perimetro ristretto, ad esempio account, email, backup, Microsoft 365 o un singolo servizio. Il livello di approfondimento viene concordato in base alle esigenze.</p></div></details><details class="faq-item"><summary>È possibile richiedere una verifica su un singolo sito o server?</summary><div class="faq-body"><p>Sì. È possibile definire un perimetro limitato a un sito, un’applicazione, un server o un insieme di servizi. Le attività e i limiti vengono stabiliti prima dell’avvio.</p></div></details><details class="faq-item"><summary>Le attività possono essere svolte da remoto?</summary><div class="faq-body"><p>Sì, la maggior parte delle attività di assessment e testing può essere svolta da remoto. Eventuali attività onsite vengono valutate solo quando necessarie e concordate.</p></div></details><details class="faq-item"><summary>Quanto costa una consulenza?</summary><div class="faq-body"><p>Il costo dipende dalla complessità, dal perimetro, dal numero di sistemi, dalla profondità delle verifiche e dai tempi richiesti. Dopo una prima analisi delle esigenze viene preparato un preventivo personalizzato.</p></div></details><details class="faq-item"><summary>Riceverò un report delle vulnerabilità?</summary><div class="faq-body"><p>Sì. Il report descrive le criticità, il loro impatto, le evidenze e le raccomandazioni di correzione. Il formato e il livello di dettaglio vengono concordati. Un retest può essere incluso o richiesto separatamente.</p></div></details><details class="faq-item"><summary>È necessario interrompere i sistemi durante le verifiche?</summary><div class="faq-body"><p>Non sempre. Molte attività possono essere eseguite senza interruzioni, ma alcune verifiche intrusive richiedono finestre concordate. Non è possibile garantire l’assenza totale di impatto: pianificazione e autorizzazione sono parte del processo.</p></div></details></div>
 </section>
-<section class="page-section">
+<section class="page-section" data-home-section="contact">
 <div class="cta-panel" data-aos="fade-up"><div><h2 class="section-title-glow">Vuoi migliorare la sicurezza della tua attività?</h2><p>Che tu gestisca uno studio professionale, un’azienda o un’applicazione web, puoi contattarmi per descrivere le tue esigenze e valutare un intervento di sicurezza informatica.</p></div><a class="gradient-btn" data-page="contact" href="#contatti">Richiedi una consulenza <i aria-hidden="true" class="fa fa-arrow-right"></i></a></div>
 <p class="note" style="margin-top:16px"><a href="mailto:voxlab.services@gmail.com">voxlab.services@gmail.com</a> · <a data-page="contact" href="#contatti">Contattami</a></p>
 </section>
@@ -2052,6 +2126,30 @@ body.light #report-detail .report-back{color:#222;border-color:rgba(0,0,0,.2)}
 <div class="lang-site" data-lang="en" hidden><section aria-labelledby="home-title" class="page home-hero page page-home" data-lang-page="en" data-page-key="home" id="page-home-en">
 <div aria-hidden="true" class="dashed-grid"><div class="dg-line"></div><div class="dg-line"></div><div class="dg-line"></div><div class="dg-line"></div><div class="dg-line"></div><div class="dg-line"></div></div>
 <div aria-hidden="true" class="particles-canvas" id="particles-canvas-en" style="position:absolute;inset:0;pointer-events:none;z-index:0;overflow:hidden;"></div>
+<div class="hero-screen">
+<div aria-hidden="true" class="hero-constellation">
+<svg viewbox="0 0 600 600">
+<g class="hero-net-rings" fill="none" stroke="rgba(239,68,68,.18)" stroke-width=".6">
+<ellipse cx="300" cy="300" rx="252" ry="112" transform="rotate(-18 300 300)"></ellipse>
+<ellipse cx="300" cy="300" rx="252" ry="112" transform="rotate(42 300 300)"></ellipse>
+<circle cx="300" cy="300" r="192" stroke-dasharray="1 8"></circle>
+<circle cx="300" cy="300" r="246" stroke="rgba(255,255,255,.055)"></circle>
+</g>
+<g class="hero-net-lines" fill="none" stroke="rgba(239,68,68,.32)" stroke-width=".75">
+<path d="M300 120 L470 190 L520 330 L440 470 L300 520 L150 470 L80 320 L150 180 Z"></path>
+<path d="M300 120 L300 300 L520 330 M150 180 L300 300 L440 470 M80 320 L300 300 L300 520 M470 190 L300 300 L150 470"></path>
+<path d="M300 120 L520 330 M470 190 L300 520 M80 320 L440 470 M150 180 L300 520"></path>
+</g>
+<g class="hero-net-nodes">
+<circle cx="300" cy="120" fill="#ef4444" r="3.2"></circle><circle cx="470" cy="190" fill="#e6eef6" r="2.4"></circle><circle cx="520" cy="330" fill="#ef4444" r="2.8"></circle><circle cx="440" cy="470" fill="#e6eef6" r="2.2"></circle><circle cx="300" cy="520" fill="#ef4444" r="3"></circle><circle cx="150" cy="470" fill="#e6eef6" r="2.3"></circle><circle cx="80" cy="320" fill="#ef4444" r="2.7"></circle><circle cx="150" cy="180" fill="#e6eef6" r="2.2"></circle>
+<circle cx="300" cy="300" fill="#e6eef6" r="5"></circle><circle cx="300" cy="300" fill="none" r="13" stroke="#ef4444" stroke-width=".7"></circle>
+<circle cx="222" cy="246" fill="#ef4444" opacity=".7" r="1.2"></circle><circle cx="388" cy="356" fill="#ef4444" opacity=".7" r="1.2"></circle>
+</g>
+<g class="hero-net-ticks" stroke="rgba(255,255,255,.22)" stroke-width=".6">
+<path d="M300 44 V58"></path><path d="M300 542 V556"></path><path d="M44 300 H58"></path><path d="M542 300 H556"></path>
+</g>
+</svg>
+</div>
 <div class="hero-inner page-shell">
 <header data-aos="fade-down">
 <span class="kicker"><i aria-hidden="true" class="fa fa-circle"></i> INDEPENDENT CYBERSECURITY CONSULTANT</span>
@@ -2071,12 +2169,14 @@ body.light #report-detail .report-back{color:#222;border-color:rgba(0,0,0,.2)}
 </div>
 </header>
 </div>
+<a class="hero-scroll" data-home-target="context" href="#"><span aria-hidden="true" class="hero-scroll-line"></span><span>SCROLL TO EXPLORE</span></a>
+</div>
 <div class="page-shell">
-<section class="page-section">
+<section class="page-section" data-home-section="context">
 <div class="section-head"><div class="section-kicker">01 — Context</div><h2 class="section-title-glow">Cybersecurity is not only a concern for large companies.</h2><p>A vulnerable website, an unverified backup, a compromised account or a misconfiguration can put data and operations at risk. I help companies and professionals identify these issues and define concrete actions to reduce exposure to attacks.</p></div>
 <div class="grid-4"><div class="info-card" data-aos="fade-up"><div class="icon"><i aria-hidden="true" class="fa fa-globe"></i></div><h3>Websites and applications</h3><p>Assessment of vulnerabilities that can compromise data, accounts and functionality.</p></div><div class="info-card" data-aos="fade-up"><div class="icon"><i aria-hidden="true" class="fa fa-network-wired"></i></div><h3>Networks and infrastructure</h3><p>Security analysis of servers, devices, exposed services and remote access.</p></div><div class="info-card" data-aos="fade-up"><div class="icon"><i aria-hidden="true" class="fa fa-user-shield"></i></div><h3>Business data and accounts</h3><p>Review of protections for email, files, cloud accounts and authentication systems.</p></div><div class="info-card" data-aos="fade-up"><div class="icon"><i aria-hidden="true" class="fa fa-life-ring"></i></div><h3>Prevention and resilience</h3><p>Assessment of configurations, backups, access and security measures to reduce incident impact.</p></div></div>
 </section>
-<section class="page-section">
+<section class="page-section" data-home-section="services">
 <div class="section-head"><div class="section-kicker">02 — Services</div><h2 class="section-title-glow">Cybersecurity Services</h2><p>Consulting and technical assessments tailored to companies, professionals and digital businesses.</p></div>
 <div class="grid-3"><article class="service-card" data-aos="fade-up">
 <div class="icon"><i aria-hidden="true" class="fa fa-shield-halved"></i></div>
@@ -2123,7 +2223,7 @@ body.light #report-detail .report-back{color:#222;border-color:rgba(0,0,0,.2)}
 </article></div>
 <div class="hero-actions"><a class="btn-secondary" data-page="services" href="#servizi">View all services <i aria-hidden="true" class="fa fa-arrow-right"></i></a></div>
 </section>
-<section class="page-section">
+<section class="page-section" data-home-section="sectors">
 <div class="section-head"><div class="section-kicker">03 — Who I help</div><h2 class="section-title-glow">Security solutions for different organizations and practices.</h2></div>
 <div class="grid-5"><article class="sector-card" data-aos="fade-up">
 <div class="icon"><i aria-hidden="true" class="fa fa-drafting-compass"></i></div>
@@ -2160,12 +2260,12 @@ body.light #report-detail .report-back{color:#222;border-color:rgba(0,0,0,.2)}
 <p class="note">Activities can include security code review and cloud configuration review.</p>
 </article></div>
 </section>
-<section class="page-section">
+<section class="page-section" data-home-section="method">
 <div class="section-head"><div class="section-kicker">04 — Method</div><h2 class="section-title-glow">A technical, clear and results-oriented approach.</h2></div>
 <div class="process-grid"><div class="process-step" data-aos="fade-up"><div class="step-no">01</div><h3>Requirements analysis</h3><p>I understand the client’s objectives, the systems involved and the main risks to assess.</p></div><div class="process-step" data-aos="fade-up"><div class="step-no">02</div><h3>Engagement definition</h3><p>We agree on activities, scope, authorizations, timing and deliverables.</p></div><div class="process-step" data-aos="fade-up"><div class="step-no">03</div><h3>Technical testing</h3><p>I perform the agreed assessments using appropriate methodologies and tools.</p></div><div class="process-step" data-aos="fade-up"><div class="step-no">04</div><h3>Report</h3><p>I document findings, their impact and remediation recommendations.</p></div><div class="process-step" data-aos="fade-up"><div class="step-no">05</div><h3>Support and verification</h3><p>Where included in the engagement, I provide technical clarification and verify the effectiveness of fixes.</p></div></div>
 <p class="note">All intrusive activities require explicit authorization and an agreed scope.</p>
 </section>
-<section class="page-section">
+<section class="page-section" data-home-section="trust">
 <div class="section-head"><div class="section-kicker">05 — Trust</div><h2 class="section-title-glow">An approach based on vulnerability research.</h2><p>My work as an Offensive Security Researcher allows me to approach cybersecurity with a focus on identifying real vulnerabilities. I apply this experience to technical assessments and consulting, with attention to the concrete impact of findings.</p></div>
 <div class="grid-2">
 <div class="info-card" data-aos="fade-up"><ul class="list-checks"><li>Offensive Security Research</li><li>Penetration Testing</li><li>Web &amp; API Security</li><li>Bug Bounty</li><li>Certifications</li><li>Technical experience</li><li>Vulnerability reports</li><li>Manual analysis skills</li></ul><p class="note">Bug bounty platforms are not direct clients: activities are performed through public programs.</p><div class="hero-actions"><a class="btn-secondary" data-page="about" href="#chi-sono">About <i aria-hidden="true" class="fa fa-arrow-right"></i></a></div></div>
@@ -2177,23 +2277,23 @@ body.light #report-detail .report-back{color:#222;border-color:rgba(0,0,0,.2)}
 </div><div class="cert-cards"><span class="cert-card"><i class="fa fa-certificate"></i> eJPT</span><span class="cert-card"><i class="fa fa-graduation-cap"></i> B.Sc. STEM — Università degli Studi di Bari</span><span class="cert-card"><i class="fa fa-hourglass-half"></i> OSCP — preparation in progress</span></div></div>
 </div>
 </section>
-<section class="page-section">
+<section class="page-section" data-home-section="research">
 <div class="section-head"><div class="section-kicker">06 — Research</div><h2 class="section-title-glow">Security Research &amp; Vulnerability Discovery</h2><p>Alongside consulting, I work on vulnerability research and offensive security, with a focus on web applications, APIs and authorization logic.</p></div>
 <div class="grid-3"><a class="info-card report-preview-card" data-aos="fade-up" data-page="research" data-report="ssrf" href="#research"><span class="severity-badge severity-critical">Critical</span><h3>SSRF — /api/og/statistic</h3><p>Unauthenticated parameter allowed server-side requests and internal network access.</p><span class="read-more">Read report <i aria-hidden="true" class="fa fa-arrow-right"></i></span></a><a class="info-card report-preview-card" data-aos="fade-up" data-page="research" data-report="idor1" href="#research"><span class="severity-badge severity-high">High</span><h3>IDOR — /api/Log</h3><p>Weak access control on a logging endpoint with impact on the audit trail.</p><span class="read-more">Read report <i aria-hidden="true" class="fa fa-arrow-right"></i></span></a><a class="info-card report-preview-card" data-aos="fade-up" data-page="research" data-report="xss" href="#research"><span class="severity-badge severity-high">High</span><h3>DOM XSS — /user/auth/chooseschema</h3><p>Reflected DOM injection in the SSO authentication flow.</p><span class="read-more">Read report <i aria-hidden="true" class="fa fa-arrow-right"></i></span></a></div>
 <p class="note">Full technical reports are in English, the original disclosure language.</p>
 <div class="hero-actions"><a class="btn-secondary" data-page="research" href="#research">All technical reports <i aria-hidden="true" class="fa fa-arrow-right"></i></a></div>
 </section>
-<section class="page-section">
+<section class="page-section" data-home-section="tailored">
 <div class="section-head"><div class="section-kicker">07 — Tailored</div><h2 class="section-title-glow">Every infrastructure is different. Consulting should be too.</h2><p>A small professional practice, an e-commerce business and a software house have different security needs. I define activities based on the systems involved, objectives and client priorities.</p></div>
 <div class="grid-3"><article class="mode-card" data-aos="fade-up"><h3>Security Checkup</h3><p>Initial assessment of a limited scope: accounts, configurations, backups, devices or selected services.</p><p class="note">Suitable for a first targeted review.</p></article><article class="mode-card" data-aos="fade-up"><h3>Security Assessment</h3><p>A more structured analysis of agreed networks, systems, applications or infrastructure.</p><p class="note">Suitable for a broader technical picture.</p></article><article class="mode-card" data-aos="fade-up"><h3>Penetration Testing</h3><p>In-depth technical testing of an authorized scope, with manual vulnerability analysis and reporting.</p><p class="note">Suitable for validating the real impact of vulnerabilities.</p></article></div>
 <p class="note">No fixed prices are published: the quote depends on scope, complexity and requested activities.</p>
 <div class="hero-actions"><a class="gradient-btn" data-page="contact" href="#contatti">Request a tailored quote <i aria-hidden="true" class="fa fa-arrow-right"></i></a></div>
 </section>
-<section class="page-section">
+<section class="page-section" data-home-section="faq">
 <div class="section-head"><div class="section-kicker">08 — FAQ</div><h2 class="section-title-glow">Frequently asked questions</h2></div>
 <div class="faq-grid"><details class="faq-item"><summary>What is the difference between a Vulnerability Assessment and a Penetration Test?</summary><div class="faq-body"><p>A Vulnerability Assessment identifies and prioritizes known weaknesses, often with less intrusive checks. A Penetration Test also validates exploitability, analyzing attack chains and real impact within an authorized scope. Both produce a technical report.</p></div></details><details class="faq-item"><summary>Do you also work with small practices and independent professionals?</summary><div class="faq-body"><p>Yes. Activities can be limited to a small scope, such as accounts, email, backups, Microsoft 365 or a single service. The depth is agreed based on your needs.</p></div></details><details class="faq-item"><summary>Can I request a review of a single website or server?</summary><div class="faq-body"><p>Yes. The scope can be limited to a website, application, server or set of services. Activities and boundaries are defined before starting.</p></div></details><details class="faq-item"><summary>Can assessments be performed remotely?</summary><div class="faq-body"><p>Yes, most assessment and testing activities can be performed remotely. On-site work is evaluated only when necessary and agreed in advance.</p></div></details><details class="faq-item"><summary>How much does a consultation cost?</summary><div class="faq-body"><p>Cost depends on complexity, scope, number of systems, depth of testing and timing. A tailored quote is prepared after an initial requirements review.</p></div></details><details class="faq-item"><summary>Will I receive a vulnerability report?</summary><div class="faq-body"><p>Yes. The report describes findings, impact, evidence and remediation recommendations. Format and level of detail are agreed. A retest can be included or requested separately.</p></div></details><details class="faq-item"><summary>Do systems need to be stopped during testing?</summary><div class="faq-body"><p>Not always. Many activities can run without interruption, but some intrusive tests require agreed windows. Total absence of impact cannot be guaranteed: planning and authorization are part of the process.</p></div></details></div>
 </section>
-<section class="page-section">
+<section class="page-section" data-home-section="contact">
 <div class="cta-panel" data-aos="fade-up"><div><h2 class="section-title-glow">Do you want to improve the security of your business?</h2><p>Whether you manage a professional practice, a company or a web application, you can contact me to describe your needs and evaluate a cybersecurity engagement.</p></div><a class="gradient-btn" data-page="contact" href="#contatti">Request a consultation <i aria-hidden="true" class="fa fa-arrow-right"></i></a></div>
 <p class="note" style="margin-top:16px"><a href="mailto:voxlab.services@gmail.com">voxlab.services@gmail.com</a> · <a data-page="contact" href="#contatti">Contact me</a></p>
 </section>
@@ -2342,7 +2442,7 @@ body.light #report-detail .report-back{color:#222;border-color:rgba(0,0,0,.2)}
 <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
 <script src="https://cdn.jsdelivr.net/npm/tsparticles@2.12.0/tsparticles.bundle.min.js"></script>
-<script>window.__SHELL={"it": {"role": "Consulente Cybersecurity Indipendente & Offensive Security Researcher", "menu": "Apri il menu", "close": "Chiudi il menu", "theme": "Cambia tema", "email": "Email", "skip": "Vai al contenuto", "cta": "Richiedi consulenza", "hint": "HOLD BACKGROUND · DEEP FIELD", "intro_sub": "Inizializzazione campo profondo", "nav_home": "Home", "nav_services": "Servizi", "nav_pt": "Penetration Testing", "nav_research": "Security Research", "nav_about": "Chi sono", "nav_contact": "Contatti", "footer_brand": "Consulenza cybersecurity indipendente, penetration testing e sicurezza delle infrastrutture. Un interlocutore tecnico diretto, dall’analisi al report.", "footer_nav": "Navigazione", "footer_services": "Servizi", "footer_contact": "Contatti", "footer_services_link": "Servizi", "footer_pt": "Penetration Testing", "footer_companies": "Cybersecurity aziende e studi", "footer_hardening": "Security Hardening", "footer_cloud": "Cloud & Application Security", "footer_contact_form": "Modulo contatti", "footer_research": "Security Research", "footer_privacy": "Informativa privacy", "rights": "Tutti i diritti riservati.", "note": "Sito statico · GitHub Pages", "report_note": "Report tecnico completo in inglese (lingua originale della disclosure). Sintesi in italiano disponibile in questa pagina.", "report_back": "Torna alla ricerca", "fxLabels": {"home": "HOME", "services": "SERVIZI", "pt": "PENETRATION TESTING", "companies": "AZIENDE E STUDI", "research": "RESEARCH", "about": "CHI SONO", "contact": "CONTATTI", "privacy": "PRIVACY", "report-detail": "REPORT"}, "fxI18n": {"calibrating": "CALIBRAZIONE", "lock": "SEGNALE AGGANCIATO", "deep": "CAMPO PROFONDO", "fallback": "FALLBACK CSS"}}, "en": {"role": "Independent Cybersecurity Consultant & Offensive Security Researcher", "menu": "Open menu", "close": "Close menu", "theme": "Toggle theme", "email": "Email", "skip": "Skip to content", "cta": "Request a consultation", "hint": "HOLD BACKGROUND · DEEP FIELD", "intro_sub": "Deep Field Initialization", "nav_home": "Home", "nav_services": "Services", "nav_pt": "Penetration Testing", "nav_research": "Security Research", "nav_about": "About", "nav_contact": "Contact", "footer_brand": "Independent cybersecurity consulting, penetration testing and infrastructure security. A direct technical contact, from assessment to report.", "footer_nav": "Navigation", "footer_services": "Services", "footer_contact": "Contact", "footer_services_link": "Services", "footer_pt": "Penetration Testing", "footer_companies": "Cybersecurity for companies", "footer_hardening": "Security Hardening", "footer_cloud": "Cloud & Application Security", "footer_contact_form": "Contact form", "footer_research": "Security Research", "footer_privacy": "Privacy notice", "rights": "All rights reserved.", "note": "Static site · GitHub Pages", "report_note": "Full technical report in English (original disclosure language). An Italian summary is available on the Italian page.", "report_back": "Back to research", "fxLabels": {"home": "HOME", "services": "SERVICES", "pt": "PENETRATION TESTING", "companies": "COMPANIES & PRACTICES", "research": "RESEARCH", "about": "ABOUT", "contact": "CONTACT", "privacy": "PRIVACY", "report-detail": "REPORT"}, "fxI18n": {"calibrating": "CALIBRATING", "lock": "SIGNAL LOCK", "deep": "DEEP FIELD", "fallback": "CSS FALLBACK"}}};window.__META={"it": {"home": ["Consulente Cybersecurity e Penetration Testing | Thanat0s", "Consulenza cybersecurity indipendente per aziende e professionisti. Penetration testing, vulnerability assessment, sicurezza reti, server e applicazioni web."], "services": ["Servizi di Cybersecurity | Thanat0s", "Penetration testing, sicurezza reti e server, cybersecurity per PMI e studi professionali, cloud security, hardening e risk assessment."], "pt": ["Penetration Testing Web, API e Infrastrutture | Thanat0s", "Penetration testing autorizzato per applicazioni web, API, autenticazione e infrastrutture. Analisi manuale, report tecnico e retest."], "companies": ["Cybersecurity per Aziende e Studi Professionali | Thanat0s", "Cybersecurity per PMI, studi di architettura e ingegneria, commercialisti, avvocati, e-commerce e software house. Assessment, account, backup, reti e accessi remoti."], "research": ["Security Research & Vulnerability Discovery | Thanat0s", "Ricerca sulle vulnerabilità, sicurezza offensiva e report tecnici su applicazioni web, API e logiche di autorizzazione."], "about": ["Chi sono | Thanat0s — Consulente Cybersecurity", "Giuseppe Benassi, Thanat0s: consulente cybersecurity indipendente, pentester e Offensive Security Researcher. eJPT, bug bounty e oltre 200 vulnerabilità segnalate."], "contact": ["Contatti e Richieste di Consulenza | Thanat0s", "Contatta Thanat0s per una consulenza cybersecurity, un penetration test o un assessment tecnico. Descrivi il perimetro e ricevi una valutazione iniziale."], "privacy": ["Informativa Privacy | Thanat0s", "Informativa sul trattamento dei dati inviati tramite il modulo di contatto del sito Thanat0s."]}, "en": {"home": ["Cybersecurity Consultant & Penetration Testing | Thanat0s", "Independent cybersecurity consulting for companies and professionals. Penetration testing, vulnerability assessment, network, server and web application security."], "services": ["Cybersecurity Services | Thanat0s", "Penetration testing, network and server security, cybersecurity for SMEs and professional practices, cloud security, hardening and risk assessment."], "pt": ["Web, API and Infrastructure Penetration Testing | Thanat0s", "Authorized penetration testing for web applications, APIs, authentication and infrastructure. Manual analysis, technical reporting and retesting."], "companies": ["Cybersecurity for Companies and Professional Practices | Thanat0s", "Cybersecurity for SMEs, architecture and engineering firms, accountants, lawyers, e-commerce and software houses. Assessments, accounts, backups, networks and remote access."], "research": ["Security Research & Vulnerability Discovery | Thanat0s", "Vulnerability research, offensive security and technical reports on web applications, APIs and authorization logic."], "about": ["About | Thanat0s — Cybersecurity Consultant", "Giuseppe Benassi, Thanat0s: independent cybersecurity consultant, pentester and Offensive Security Researcher. eJPT, bug bounty and 200+ reported vulnerabilities."], "contact": ["Contact & Consultation Requests | Thanat0s", "Contact Thanat0s for cybersecurity consulting, penetration testing or a technical assessment. Describe your scope and receive an initial evaluation."], "privacy": ["Privacy Notice | Thanat0s", "Privacy notice for data submitted through the Thanat0s contact form."]}};</script>
+<script>window.__SHELL={"it": {"role": "Consulente Cybersecurity Indipendente & Offensive Security Researcher", "menu": "Apri il menu", "close": "Chiudi il menu", "theme": "Cambia tema", "email": "Email", "skip": "Vai al contenuto", "cta": "Richiedi consulenza", "hint": "HOLD BACKGROUND · DEEP FIELD", "intro_sub": "Inizializzazione campo profondo", "nav_home": "Home", "nav_services": "Servizi", "nav_pt": "Penetration Testing", "nav_research": "Security Research", "nav_about": "Chi sono", "nav_contact": "Contatti", "footer_brand": "Consulenza cybersecurity indipendente, penetration testing e sicurezza delle infrastrutture. Un interlocutore tecnico diretto, dall’analisi al report.", "footer_nav": "Navigazione", "footer_services": "Servizi", "footer_contact": "Contatti", "footer_services_link": "Servizi", "footer_pt": "Penetration Testing", "footer_companies": "Cybersecurity aziende e studi", "footer_hardening": "Security Hardening", "footer_cloud": "Cloud & Application Security", "footer_contact_form": "Modulo contatti", "footer_research": "Security Research", "footer_privacy": "Informativa privacy", "rights": "Tutti i diritti riservati.", "note": "Sito statico · GitHub Pages", "report_note": "Report tecnico completo in inglese (lingua originale della disclosure). Sintesi in italiano disponibile in questa pagina.", "report_back": "Torna alla ricerca", "rail_context": "Contesto", "rail_services": "Servizi", "rail_sectors": "Destinatari", "rail_method": "Metodo", "rail_trust": "Affidabilità", "rail_research": "Research", "rail_tailored": "Su misura", "rail_faq": "FAQ", "rail_contact": "Contatti", "fxLabels": {"home": "HOME", "services": "SERVIZI", "pt": "PENETRATION TESTING", "companies": "AZIENDE E STUDI", "research": "RESEARCH", "about": "CHI SONO", "contact": "CONTATTI", "privacy": "PRIVACY", "report-detail": "REPORT"}, "fxI18n": {"calibrating": "CALIBRAZIONE", "lock": "SEGNALE AGGANCIATO", "deep": "CAMPO PROFONDO", "fallback": "FALLBACK CSS"}}, "en": {"role": "Independent Cybersecurity Consultant & Offensive Security Researcher", "menu": "Open menu", "close": "Close menu", "theme": "Toggle theme", "email": "Email", "skip": "Skip to content", "cta": "Request a consultation", "hint": "HOLD BACKGROUND · DEEP FIELD", "intro_sub": "Deep Field Initialization", "nav_home": "Home", "nav_services": "Services", "nav_pt": "Penetration Testing", "nav_research": "Security Research", "nav_about": "About", "nav_contact": "Contact", "footer_brand": "Independent cybersecurity consulting, penetration testing and infrastructure security. A direct technical contact, from assessment to report.", "footer_nav": "Navigation", "footer_services": "Services", "footer_contact": "Contact", "footer_services_link": "Services", "footer_pt": "Penetration Testing", "footer_companies": "Cybersecurity for companies", "footer_hardening": "Security Hardening", "footer_cloud": "Cloud & Application Security", "footer_contact_form": "Contact form", "footer_research": "Security Research", "footer_privacy": "Privacy notice", "rights": "All rights reserved.", "note": "Static site · GitHub Pages", "report_note": "Full technical report in English (original disclosure language). An Italian summary is available on the Italian page.", "report_back": "Back to research", "rail_context": "Context", "rail_services": "Services", "rail_sectors": "Who I help", "rail_method": "Method", "rail_trust": "Trust", "rail_research": "Research", "rail_tailored": "Tailored", "rail_faq": "FAQ", "rail_contact": "Contact", "fxLabels": {"home": "HOME", "services": "SERVICES", "pt": "PENETRATION TESTING", "companies": "COMPANIES & PRACTICES", "research": "RESEARCH", "about": "ABOUT", "contact": "CONTACT", "privacy": "PRIVACY", "report-detail": "REPORT"}, "fxI18n": {"calibrating": "CALIBRATING", "lock": "SIGNAL LOCK", "deep": "DEEP FIELD", "fallback": "CSS FALLBACK"}}};window.__META={"it": {"home": ["Consulente Cybersecurity e Penetration Testing | Thanat0s", "Consulenza cybersecurity indipendente per aziende e professionisti. Penetration testing, vulnerability assessment, sicurezza reti, server e applicazioni web."], "services": ["Servizi di Cybersecurity | Thanat0s", "Penetration testing, sicurezza reti e server, cybersecurity per PMI e studi professionali, cloud security, hardening e risk assessment."], "pt": ["Penetration Testing Web, API e Infrastrutture | Thanat0s", "Penetration testing autorizzato per applicazioni web, API, autenticazione e infrastrutture. Analisi manuale, report tecnico e retest."], "companies": ["Cybersecurity per Aziende e Studi Professionali | Thanat0s", "Cybersecurity per PMI, studi di architettura e ingegneria, commercialisti, avvocati, e-commerce e software house. Assessment, account, backup, reti e accessi remoti."], "research": ["Security Research & Vulnerability Discovery | Thanat0s", "Ricerca sulle vulnerabilità, sicurezza offensiva e report tecnici su applicazioni web, API e logiche di autorizzazione."], "about": ["Chi sono | Thanat0s — Consulente Cybersecurity", "Giuseppe Benassi, Thanat0s: consulente cybersecurity indipendente, pentester e Offensive Security Researcher. eJPT, bug bounty e oltre 200 vulnerabilità segnalate."], "contact": ["Contatti e Richieste di Consulenza | Thanat0s", "Contatta Thanat0s per una consulenza cybersecurity, un penetration test o un assessment tecnico. Descrivi il perimetro e ricevi una valutazione iniziale."], "privacy": ["Informativa Privacy | Thanat0s", "Informativa sul trattamento dei dati inviati tramite il modulo di contatto del sito Thanat0s."]}, "en": {"home": ["Cybersecurity Consultant & Penetration Testing | Thanat0s", "Independent cybersecurity consulting for companies and professionals. Penetration testing, vulnerability assessment, network, server and web application security."], "services": ["Cybersecurity Services | Thanat0s", "Penetration testing, network and server security, cybersecurity for SMEs and professional practices, cloud security, hardening and risk assessment."], "pt": ["Web, API and Infrastructure Penetration Testing | Thanat0s", "Authorized penetration testing for web applications, APIs, authentication and infrastructure. Manual analysis, technical reporting and retesting."], "companies": ["Cybersecurity for Companies and Professional Practices | Thanat0s", "Cybersecurity for SMEs, architecture and engineering firms, accountants, lawyers, e-commerce and software houses. Assessments, accounts, backups, networks and remote access."], "research": ["Security Research & Vulnerability Discovery | Thanat0s", "Vulnerability research, offensive security and technical reports on web applications, APIs and authorization logic."], "about": ["About | Thanat0s — Cybersecurity Consultant", "Giuseppe Benassi, Thanat0s: independent cybersecurity consultant, pentester and Offensive Security Researcher. eJPT, bug bounty and 200+ reported vulnerabilities."], "contact": ["Contact & Consultation Requests | Thanat0s", "Contact Thanat0s for cybersecurity consulting, penetration testing or a technical assessment. Describe your scope and receive an initial evaluation."], "privacy": ["Privacy Notice | Thanat0s", "Privacy notice for data submitted through the Thanat0s contact form."]}};</script>
 <script>
 (function () {
   "use strict";
@@ -2498,6 +2598,28 @@ body.light #report-detail .report-back{color:#222;border-color:rgba(0,0,0,.2)}
     document.body.classList.remove("report-open");
   }
 
+  function updateHomeRail() {
+    if (currentPage !== "home") return;
+    var rail = q("#home-rail");
+    if (!rail) return;
+    var home = q('[data-lang-page="' + currentLang + '"][data-page-key="home"]');
+    if (!home) return;
+    var sections = qa("[data-home-section]", home);
+    if (!sections.length) return;
+    var mid = innerHeight * 0.45, active = sections[0];
+    for (var i = 0; i < sections.length; i++) {
+      if (sections[i].getBoundingClientRect().top <= mid) active = sections[i];
+    }
+    qa("[data-home-target]", rail).forEach(function (a) {
+      a.classList.toggle("active", a.getAttribute("data-home-target") === active.getAttribute("data-home-section"));
+    });
+    var total = Math.max(1, home.offsetHeight - innerHeight);
+    var p = Math.min(1, Math.max(0, -home.getBoundingClientRect().top / total));
+    var fill = q(".home-rail-fill", rail);
+    if (fill) fill.style.height = (p * 100).toFixed(1) + "%";
+    document.documentElement.style.setProperty("--home-scroll", p.toFixed(4));
+  }
+
   function showPage(key, opts) {
     opts = opts || {};
     if (PAGES.indexOf(key) < 0) key = "home";
@@ -2523,7 +2645,11 @@ body.light #report-detail .report-back{color:#222;border-color:rgba(0,0,0,.2)}
     updateMeta();
     if (window.AOS) { try { window.AOS.refreshHard(); } catch (e) {} }
     if (key === "home") initHomeWidgets(currentLang);
+    var rail = q("#home-rail");
+    if (rail) rail.classList.toggle("on", key === "home");
+    if (key !== "home") document.documentElement.style.setProperty("--home-scroll", "0");
     window.scrollTo(0, 0);
+    if (key === "home") window.requestAnimationFrame(updateHomeRail);
     if (opts.service) window.setTimeout(function () { setService(opts.service); }, 80);
     if (opts.anchor) {
       window.setTimeout(function () {
@@ -2628,6 +2754,20 @@ body.light #report-detail .report-back{color:#222;border-color:rgba(0,0,0,.2)}
     });
     var top = q("#topbar-lang");
     if (top) top.addEventListener("click", function () { setLang(currentLang === "it" ? "en" : "it"); });
+    var railTick = false;
+    window.addEventListener("scroll", function () {
+      if (railTick) return;
+      railTick = true;
+      window.requestAnimationFrame(function () { railTick = false; updateHomeRail(); });
+    }, { passive: true });
+    document.addEventListener("click", function (e) {
+      var a = e.target && e.target.closest ? e.target.closest("[data-home-target]") : null;
+      if (!a) return;
+      e.preventDefault();
+      var home = q('[data-lang-page="' + currentLang + '"][data-page-key="home"]');
+      var sec = home ? home.querySelector('[data-home-section="' + a.getAttribute("data-home-target") + '"]') : null;
+      if (sec) sec.scrollIntoView({ behavior: "smooth", block: "start" });
+    }, true);
     window.addEventListener("hashchange", function () {
       var h = (location.hash || "").replace("#", "");
       if (REPORTS.indexOf(h) >= 0) { showPage("research", { updateHash: false }); if (window.openReport) window.openReport(h); return; }
@@ -3668,6 +3808,17 @@ void main() {
     privacy: { d: 22, el: 36, az: 260, roll: 4, sx: 0.42, sy: 0.24, disk: 11 },
     "report-detail": { d: 35, el: 36, az: 300, roll: 2, sx: 0.44, sy: 0.25, disk: 22 }
   };
+  var HOME_POSES = [
+    { d: 25, el: 30, az: -14, roll: 7, sx: 0.42, sy: 0.27, disk: 13.5 },
+    { d: 22, el: 24, az: 8, roll: -4, sx: 0.34, sy: 0.20, disk: 14 },
+    { d: 28, el: 40, az: 58, roll: 8, sx: 0.44, sy: 0.28, disk: 16 },
+    { d: 24, el: 52, az: 118, roll: -10, sx: 0.36, sy: 0.18, disk: 12 },
+    { d: 30, el: 34, az: 168, roll: 4, sx: 0.42, sy: 0.24, disk: 18 },
+    { d: 21, el: 28, az: 210, roll: -6, sx: 0.38, sy: 0.22, disk: 10 },
+    { d: 27, el: 58, az: 252, roll: 9, sx: 0.44, sy: 0.28, disk: 18 },
+    { d: 23, el: 38, az: 300, roll: -8, sx: 0.40, sy: 0.24, disk: 12 },
+    { d: 26, el: 46, az: 340, roll: 6, sx: 0.42, sy: 0.26, disk: 16 }
+  ];
   var LABELS = Object.assign({ home: "HOME", services: "SERVICES", pt: "PENETRATION TESTING", companies: "COMPANIES", research: "RESEARCH", about: "ABOUT", contact: "CONTACT", privacy: "PRIVACY", "report-detail": "REPORT" }, window.__FX_LABELS || {});
   var I18N = Object.assign({ calibrating: "CALIBRATING", lock: "SIGNAL LOCK", deep: "DEEP FIELD", fallback: "CSS FALLBACK" }, window.__FX_I18N || {});
   var section = document.body.dataset.fx || "home";
@@ -3755,11 +3906,37 @@ void main() {
     last = performance.now();
   }
 
+  function homeProgress() {
+    var lang = document.body.dataset.lang || "it";
+    var el = document.querySelector('[data-page-key="home"][data-lang-page="' + lang + '"]') || document.getElementById("home");
+    if (!el) return 0;
+    var rect = el.getBoundingClientRect();
+    var total = el.offsetHeight - innerHeight;
+    return clamp(-rect.top / Math.max(1, total), 0, 1);
+  }
+
   function goalPose() {
+    var portrait = innerWidth < 700 || innerWidth / Math.max(1, innerHeight) < 0.95;
+    if (section === "home") {
+      var hp = homeProgress();
+      var scaled = hp * (HOME_POSES.length - 1);
+      var i = Math.min(HOME_POSES.length - 2, Math.floor(scaled));
+      var f = smooth(0, 1, scaled - i);
+      var a = HOME_POSES[i], b = HOME_POSES[i + 1];
+      var hd = Math.exp(lerp(Math.log(a.d), Math.log(b.d), f)) * (portrait ? 1.35 : 1);
+      return {
+        d: hd,
+        el: lerp(a.el, b.el, f),
+        az: lerp(a.az, b.az, f),
+        roll: lerp(a.roll, b.roll, f),
+        sx: portrait ? lerp(a.sx, b.sx, f) * 0.55 : lerp(a.sx, b.sx, f),
+        sy: portrait ? 0.12 : lerp(a.sy, b.sy, f),
+        disk: Math.min(lerp(a.disk, b.disk, f), hd * 0.82)
+      };
+    }
     var p = POSES[section] || POSES.home;
     var max = Math.max(1, document.documentElement.scrollHeight - innerHeight);
     var sp = clamp((window.scrollY || 0) / max, 0, 1);
-    var portrait = innerWidth < 700 || innerWidth / Math.max(1, innerHeight) < 0.95;
     var bd = p.d * (portrait ? 1.45 : 1) * (1 - 0.05 * sp);
     return {
       d: bd,
